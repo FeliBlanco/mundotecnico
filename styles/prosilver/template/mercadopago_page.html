@@ -1,0 +1,60 @@
+<!-- INCLUDE overall_header.html -->
+<div style="text-align:center">
+    <img src="https://www.mundotecnico.info/styles/elegance_lightblue/theme/images/logo_hd.png" class="postimage" alt="Imagen">
+    <br>
+    <hr>
+    <br>
+    <span style="font-size:350%;line-height:116%"><strong class="text-strong">SUSCRIPCION</strong></span><br>
+    <br>
+    <span style="font-size:200%;line-height:116%"><strong class="text-strong">Elige el Plan que mas te convenga.</strong></span><br>
+    <br>
+    <span style="font-size:200%;line-height:116%"><strong class="text-strong">Pagas Una Sola Vez y Accede a todo el contenido!</strong></span><br>
+    <br>
+    <h3>(Moneda: Pesos Argentinos)</h3>
+    <br>
+    </div>
+    <div style="display: flex; justify-content: center;">
+    <div>
+    <button class="buy-button" onclick="comprar(1)" data-product-id="1"><img src="https://www.mundotecnico.info/img/28000x12.png" class="postimage" alt="Pagar Ahora" /></button>
+    </div>
+    <div>
+        <button class="buy-button" onclick="comprar(2)" data-product-id="2"><img src="https://www.mundotecnico.info/img/20000x6.png" class="postimage" alt="Pagar Ahora" /></button>
+    </div>
+    <div>
+        <button class="buy-button" onclick="comprar(3)" data-product-id="3"><img src="https://www.mundotecnico.info/img/12000x1.png" class="postimage" alt="Pagar Ahora" /></button>
+    </div>
+    </div>
+    <br>
+    <br>
+    <hr>
+
+    <script>
+
+        async function comprar(productId) {
+            try {
+            const response = await fetch('./mpfeli/mercadopago/create_preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ product_id: productId})
+            });
+
+            if(!response.ok) throw new Error('Error al procesar el pago');
+
+            const data = await response.json();
+
+            if(data.init_point){
+                //window.location.href = data.init_point;
+                window.open(data.init_point, '_blank');
+            } else {
+                alert('No se pudo generar el pago');
+            }
+        } 
+        catch(error) {
+            console.error(error);
+            alert('Hubo un problema al intentar realizar el pago');
+        }
+        }
+       
+        </script>
+
+<!-- INCLUDE overall_footer.html -->

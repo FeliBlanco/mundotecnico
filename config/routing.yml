@@ -1,0 +1,32 @@
+mpfeli_mercadopago_main:
+    path: /cuenta_premium
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:handle
+        _route: mpfeli_mercadopago_main
+mpfeli_mercadopago_mercado:
+    path: /cuenta_premium_mp
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:screen_argentina
+        _route: mpfeli_mercadopago_screen_argentina
+mpfeli_mercadopago_pp:
+    path: /cuenta_premium_pp
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:screen_pp
+        _route: mpfeli_mercadopago_screen_pp
+mpfeli_mercadopago_create_preference:
+    path: /mpfeli/mercadopago/create_preference
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:create_preference
+        _route: mpfeli_mercadopago_create_preference
+mpfeli_mercadopago_webhook:
+    path: /mpfeli/mercadopago/webhook
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:webhook
+        _route: mpfeli_mercadopago_webhook
+    methods: [POST]
+mpfeli_mercadopago_verificarpms:
+    path: /mpfeli/mercadopago/verificar_pms
+    defaults:
+        _controller: mpfeli.mercadopago.controller.main:verificar_pms
+        _route: mpfeli_mercadopago_verificarpms
+    methods: [GET]

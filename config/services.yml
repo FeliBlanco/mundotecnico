@@ -1,0 +1,14 @@
+services:
+    mpfeli.mercadopago.controller.main:
+        class: mpfeli\mercadopago\controller\main
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+            - '@mpfeli.mercadopago.mailer'
+    mpfeli.mercadopago.mailer:
+        class: PHPMailer\PHPMailer\PHPMailer
+        arguments:
+            - true # true para habilitar excepciones

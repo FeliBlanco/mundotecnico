@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción Próxima a Vencer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .email-header img {
+            max-width: 200px;
+        }
+        .email-body {
+            padding: 20px;
+        }
+        .email-body h1 {
+            color: #d55440; /* Matching the red color from the logo */
+            font-size: 24px;
+        }
+        .email-body p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .highlight {
+            color: #6795c8; /* Matching the blue color from the logo */
+            font-weight: bold;
+        }
+        .email-footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <img src="cid:logo" alt="mundotecnico.info">
+        </div>
+        <div class="email-body">
+            <h1>¡Hola, <span class="highlight">{{nombre_usuario}}</span>!</h1>
+            <p>
+                Te recordamos que tu suscripción está próxima a vencer. Solo queda <span class="highlight">un dia</span> para que expire, el <span class="highlight">{{fecha_vencimiento}}</span>.
+            </p>
+            <p>
+                Te invitamos a renovar tu suscripción para seguir disfrutando de nuestro contenido técnico exclusivo entrando a {{redirect}}.
+            </p>
+            <p>Gracias por confiar en nosotros. ¡Esperamos seguir contando contigo!</p>
+        </div>
+        <div class="email-footer">
+            &copy; 2024 mundotecnico.info. Todos los derechos reservados.
+        </div>
+    </div>
+</body>
+</html>
