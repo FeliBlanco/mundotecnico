@@ -38,10 +38,12 @@ class main
 
         $this->ID_GROUP = 11;
         $this->ID_GROUP_DEFAULT = 2;
+        $this->TABLA_USER_GROUP = "phpbb_user_group";
+        $this->TABLA_USER = "phpbb_users";
         /*$this->ID_GROUP = 8;
-        $this->ID_GROUP_DEFAULT = 2;*/
+        $this->ID_GROUP_DEFAULT = 2;
         $this->TABLA_USER_GROUP = "phpbb9f_user_group";
-        $this->TABLA_USER = "phpbb9f_users";
+        $this->TABLA_USER = "phpbb9f_users";*/
 
         \MercadoPago\SDK::setAccessToken('TEST-1178374229100737-102500-170813faaa009167ed68d4070cc2a46c-544629529');
     }
