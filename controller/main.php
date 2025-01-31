@@ -36,8 +36,10 @@ class main
         $this->phpmailer = $phpmailer;
         $this->phpmailer->Hostname = $this->config['server_name'];
 
-        $this->ID_GROUP = 8;
+        $this->ID_GROUP = 11;
         $this->ID_GROUP_DEFAULT = 2;
+        /*$this->ID_GROUP = 8;
+        $this->ID_GROUP_DEFAULT = 2;*/
         $this->TABLA_USER_GROUP = "phpbb9f_user_group";
         $this->TABLA_USER = "phpbb9f_users";
 
