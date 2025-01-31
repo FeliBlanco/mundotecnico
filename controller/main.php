@@ -135,8 +135,7 @@ class main
             return new Response('Ha ocurrido un error interno', 500);
         }        
     }
-
-    
+  
     public function verificar_pms() {
         $vencidos = $this->db->sql_query("SELECT p.*, u.user_email, u.username FROM pagos p INNER JOIN ".$this->TABLA_USER." u ON u.user_id = p.id_usuario WHERE p.fecha_vencimiento <= CURDATE() AND p.vencido = 0");
         if($vencidos) {
@@ -147,14 +146,27 @@ class main
                 $this->send_email($pago['user_email'], 'Vencimiento', '', "ext/mpfeli/mercadopago/templates/email_baja.html", ["nombre_usuario" => $pago['username']]);
             }
         }
+        $fecha_actual = new \DateTime();
+
         $result = $this->db->sql_query("SELECT P.*, U.user_email, U.username, P.id AS pago_id FROM pagos P INNER JOIN ".$this->TABLA_USER." U ON U.user_id = P.id_usuario WHERE P.vencido = 0 AND ((DATEDIFF(P.fecha_vencimiento, CURDATE()) <= 7 AND P.notificacion = 0)  OR (DATEDIFF(P.fecha_vencimiento, CURDATE()) <= 1 AND P.notificacion != 2))");
         if($result) {
             while($user = $this->db->sql_fetchrow($result)) {
                 $email = $user['user_email'];
                 $username = $user['username'];
-                $dias_faltantes = (new \DateTime($user['fecha_vencimiento']))->diff(new \DateTime())->days;
 
-                if($dias_faltantes <= 1 && $user['notificacion'] != 2) {
+
+                $dias_faltantes = (new \DateTime($user['fecha_vencimiento']))->diff($fecha_actual)->days;
+
+                $log_message = sprintf(
+                    "Fecha actual: %s | Fecha vencimiento: %s | Días faltantes: %d\n",
+                    $fecha_actual->format('Y-m-d H:i:s'), // Formato de fecha y hora
+                    $user['fecha_vencimiento'],          // Fecha de vencimiento
+                    $dias_faltantes                      // Días calculados
+                );
+
+                file_put_contents('ext/mpfeli/mercadopago/dias.log', $log_message."\n", FILE_APPEND);
+
+                if($dias_faltantes < 1 && $user['notificacion'] != 2) {
                     $this->send_email($email, "Recordatorio de vencimiento", "", "ext/mpfeli/mercadopago/templates/email_un_dia.html", ["nombre_usuario" => $username, "fecha_vencimiento" => $user['fecha_vencimiento'], "redirect" => "https://myweb.mundotecnico.info/phpbb/cuenta_premium"]);
 
                     $this->db->sql_query("UPDATE pagos SET notificacion = 2 WHERE id = " . $user['pago_id']);
@@ -206,6 +218,7 @@ class main
                 //6 meses
                 //anual
                 //una semana y un dia antes aviso por mail
+
                 $data_ex =  date('y-m-d', strtotime($dia_inicio. ' + 2 day'));
 
                 $fecha_actual = new \DateTime();
